@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -48,6 +50,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $pseudo;
+
+    /**
+     * @ORM\OneToMany(targetEntity=DomainName::class, mappedBy="holder")
+     */
+    private $domainNames;
+
+    public function __construct()
+    {
+        $this->domainNames = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -159,6 +171,37 @@ class User implements UserInterface
     public function setPseudo(?string $pseudo): self
     {
         $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DomainName[]
+     */
+    public function getDomainNames(): Collection
+    {
+        return $this->domainNames;
+    }
+
+    public function addDomainName(DomainName $domainName): self
+    {
+        if (!$this->domainNames->contains($domainName)) {
+            $this->domainNames[] = $domainName;
+            $domainName->setHolder($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDomainName(DomainName $domainName): self
+    {
+        if ($this->domainNames->contains($domainName)) {
+            $this->domainNames->removeElement($domainName);
+            // set the owning side to null (unless already changed)
+            if ($domainName->getHolder() === $this) {
+                $domainName->setHolder(null);
+            }
+        }
 
         return $this;
     }
