@@ -58,9 +58,15 @@ class User implements UserInterface
      */
     private $domainNames;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Sale::class, mappedBy="user")
+     */
+    private $sales;
+
     public function __construct()
     {
         $this->domainNames = new ArrayCollection();
+        $this->sales = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -207,6 +213,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($domainName->getHolder() === $this) {
                 $domainName->setHolder(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sale[]
+     */
+    public function getSales(): Collection
+    {
+        return $this->sales;
+    }
+
+    public function addSale(Sale $sale): self
+    {
+        if (!$this->sales->contains($sale)) {
+            $this->sales[] = $sale;
+            $sale->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSale(Sale $sale): self
+    {
+        if ($this->sales->contains($sale)) {
+            $this->sales->removeElement($sale);
+            // set the owning side to null (unless already changed)
+            if ($sale->getUser() === $this) {
+                $sale->setUser(null);
             }
         }
 

@@ -31,7 +31,7 @@ class DomainName
     private $holder;
 
     /**
-     * @ORM\OneToMany(targetEntity=Sale::class, mappedBy="domaineName")
+     * @ORM\OneToMany(targetEntity=Sale::class, mappedBy="domainName")
      */
     private $sales;
 
@@ -84,7 +84,7 @@ class DomainName
     {
         if (!$this->sales->contains($sale)) {
             $this->sales[] = $sale;
-            $sale->setDomaineName($this);
+            $sale->setDomainName($this);
         }
 
         return $this;
@@ -95,8 +95,8 @@ class DomainName
         if ($this->sales->contains($sale)) {
             $this->sales->removeElement($sale);
             // set the owning side to null (unless already changed)
-            if ($sale->getDomaineName() === $this) {
-                $sale->setDomaineName(null);
+            if ($sale->getDomainName() === $this) {
+                $sale->setDomainName(null);
             }
         }
 
