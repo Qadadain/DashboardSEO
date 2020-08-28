@@ -32,4 +32,10 @@ class SaleCrudController extends AbstractCrudController
             AssociationField::new('domaineName', 'Nom de domaine'),
         ];
     }
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+
+            ->setSearchFields(['id','link','price','date','customer.name', 'domaineName.name']);
+    }
 }
