@@ -36,13 +36,18 @@ class Sale
      * @ORM\ManyToOne(targetEntity=DomainName::class, inversedBy="sales")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $domaineName;
+    private $domainName;
 
     /**
      * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="sales")
      * @ORM\JoinColumn(nullable=false)
      */
     private $customer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sales")
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -85,14 +90,14 @@ class Sale
         return $this;
     }
 
-    public function getDomaineName(): ?DomainName
+    public function getDomainName(): ?DomainName
     {
-        return $this->domaineName;
+        return $this->domainName;
     }
 
-    public function setDomaineName(?DomainName $domaineName): self
+    public function setDomainName(?DomainName $domainName): self
     {
-        $this->domaineName = $domaineName;
+        $this->domainName = $domainName;
 
         return $this;
     }
@@ -105,6 +110,18 @@ class Sale
     public function setCustomer(?Customer $customer): self
     {
         $this->customer = $customer;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

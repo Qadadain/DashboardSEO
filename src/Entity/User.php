@@ -49,18 +49,29 @@ class User implements UserInterface
     private $lastName;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=100)
      */
-    private $pseudo;
+    private string $pseudo;
 
     /**
      * @ORM\OneToMany(targetEntity=DomainName::class, mappedBy="holder")
      */
     private $domainNames;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Sale::class, mappedBy="user")
+     */
+    private $sales;
+
     public function __construct()
     {
         $this->domainNames = new ArrayCollection();
+        $this->sales = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->getPseudo();
     }
 
     public function getId(): ?int
@@ -165,7 +176,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPseudo(): ?string
+    public function getPseudo(): string
     {
         return $this->pseudo;
     }
@@ -202,6 +213,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($domainName->getHolder() === $this) {
                 $domainName->setHolder(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sale[]
+     */
+    public function getSales(): Collection
+    {
+        return $this->sales;
+    }
+
+    public function addSale(Sale $sale): self
+    {
+        if (!$this->sales->contains($sale)) {
+            $this->sales[] = $sale;
+            $sale->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSale(Sale $sale): self
+    {
+        if ($this->sales->contains($sale)) {
+            $this->sales->removeElement($sale);
+            // set the owning side to null (unless already changed)
+            if ($sale->getUser() === $this) {
+                $sale->setUser(null);
             }
         }
 
