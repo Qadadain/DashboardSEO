@@ -49,9 +49,9 @@ class User implements UserInterface
     private $lastName;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=100)
      */
-    private $pseudo;
+    private string $pseudo;
 
     /**
      * @ORM\OneToMany(targetEntity=DomainName::class, mappedBy="holder")
@@ -61,6 +61,11 @@ class User implements UserInterface
     public function __construct()
     {
         $this->domainNames = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->getPseudo();
     }
 
     public function getId(): ?int
@@ -165,7 +170,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPseudo(): ?string
+    public function getPseudo(): string
     {
         return $this->pseudo;
     }
