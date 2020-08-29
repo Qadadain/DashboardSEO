@@ -13,16 +13,45 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin", name="admin")
+ * @Route("/admin", name="admin_")
  */
 class DashboardController extends AbstractDashboardController
 {
     /**
-     * @Route("/index")
+     * @Route("/")
      */
     public function index(): Response
     {
         return $this->render('bundles/EasyAdminBundle/welcome.html.twig');
+    }
+
+    /**
+     * @Route("/hellsaya", name="hellsaya")
+     */
+    public function hellsaya()
+    {
+        return $this->render('dashboard/hellsaya.html.twig', [
+            'controller_name' => 'StatController',
+        ]);
+    }
+
+    /**
+     * @Route("/orta", name="orta")
+     */
+    public function orta()
+    {
+        return $this->render('dashboard/orta.html.twig', [
+            'controller_name' => 'StatController',
+        ]);
+    }
+    /**
+     * @Route("/rolls", name="rolls")
+     */
+    public function rolls()
+    {
+        return $this->render('dashboard/rolls.html.twig', [
+            'controller_name' => 'StatController',
+        ]);
     }
 
     public function configureDashboard(): Dashboard
@@ -34,11 +63,11 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-//ici je vais mettre linkToRoute
+//ici je vais mettre linkToRadmin
         yield MenuItem::section('Dashboard utilisateur');
-        yield MenuItem::linkToCrud('Dashboard Hellsaya', 'fas fa-cat', Sale::class );
-        yield MenuItem::linkToCrud('Dashboard Orta', 'fas fa-crow', Sale::class);
-        yield MenuItem::linkToCrud('Dashboard Rolls', 'fas fa-ghost', Sale::class);
+        yield MenuItem::linktoRoute('Dashboard Hellsaya', 'fas fa-cat', 'admin_hellsaya');
+        yield MenuItem::linkToRoute('Dashboard Orta', 'fas fa-crow', 'admin_orta');
+        yield MenuItem::linkToRoute('Dashboard Rolls', 'fas fa-ghost', 'admin_rolls');
 
 
         yield MenuItem::section('Dashboard CRUD');
