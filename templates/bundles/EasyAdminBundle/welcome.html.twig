@@ -1,8 +1,15 @@
-{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
 {% block page_title 'Bienvenue sur le Dashboard' %}
 
 {% block page_content %}
-    <p>Admin</p>
+    <div class="row">
+        <div class="col-sm-3 justify-content-center">
+            <h4>Nombre de NDD :</h4>
+            <h5>{{ countNdd['value'] }}</h5>
+        </div>
+        <div class="col-sm-8 d-flex justify-content-center">
+            <h4>ICI CAMEMBERT</h4>
+        </div>
+    </div>
 {% endblock %}

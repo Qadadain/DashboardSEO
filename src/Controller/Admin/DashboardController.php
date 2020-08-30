@@ -6,6 +6,8 @@ use App\Entity\DomainName;
 use App\Entity\Sale;
 use App\Entity\Customer;
 use App\Entity\User;
+use App\Repository\DomainNameRepository;
+use App\Repository\UserRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -18,39 +20,71 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractDashboardController
 {
     /**
+     * @var DomainNameRepository
+     */
+    protected DomainNameRepository $domainNameRepository;
+
+    public function __construct(
+        DomainNameRepository $domainNameRepository
+    )
+    {
+      $this->domainNameRepository = $domainNameRepository;
+    }
+
+    /**
      * @Route("/")
      */
     public function index(): Response
     {
-        return $this->render('bundles/EasyAdminBundle/welcome.html.twig');
+        return $this->render('bundles/EasyAdminBundle/welcome.html.twig', [
+            'countNdd' => $this->domainNameRepository->countAllNdd()
+    ]);
     }
 
     /**
      * @Route("/hellsaya", name="hellsaya")
+     * @param UserRepository $userRepository
+     * @return Response
      */
-    public function hellsaya()
+    public function hellsaya(UserRepository $userRepository)
     {
+        $user = $userRepository->find(2)->getDomainNames()->toArray($userRepository);
+        $nbNdd = count($user);
+
         return $this->render('dashboard/hellsaya.html.twig', [
-            'controller_name' => 'StatController',
+            'ndds' => $user,
+            'count' => $nbNdd,
         ]);
     }
 
     /**
      * @Route("/orta", name="orta")
+     * @param UserRepository $userRepository
+     * @return Response
      */
-    public function orta()
+    public function orta(UserRepository $userRepository)
     {
+        $user = $userRepository->find(3)->getDomainNames()->toArray($userRepository);
+        $nbNdd = count($user);
         return $this->render('dashboard/orta.html.twig', [
-            'controller_name' => 'StatController',
+            'ndds' => $user,
+            'count' => $nbNdd,
         ]);
     }
+
     /**
      * @Route("/rolls", name="rolls")
+     * @param UserRepository $userRepository
+     * @return Response
      */
-    public function rolls()
+    public function rolls(UserRepository $userRepository)
     {
+        $user = $userRepository->find(1)->getDomainNames()->toArray($userRepository);
+        $nbNdd = count($user);
+
         return $this->render('dashboard/rolls.html.twig', [
-            'controller_name' => 'StatController',
+            'ndds' => $user,
+            'count' => $nbNdd,
         ]);
     }
 

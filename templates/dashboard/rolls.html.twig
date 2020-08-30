@@ -2,5 +2,20 @@
 {% block page_title 'Dashboard de Rolls' %}
 
 {% block page_content %}
-    <p>Rolls</p>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="mb-2 border-danger">
+            <h4>Nombre de NDD :</h4>
+            <h5>{{ count }}</h5>
+            </div>
+            <div>
+            <h4>Noms des NDD :</h4>
+            {% for ndd in ndds %}
+                <div>
+                    <p>- {{ ndd.name }}</p>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

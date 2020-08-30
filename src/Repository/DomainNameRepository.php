@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\DomainName;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -47,4 +48,16 @@ class DomainNameRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return int|mixed|string
+     * @throws NonUniqueResultException
+     */
+    public function countAllNdd()
+    {
+        $queryBuilder = $this->createQueryBuilder('a');
+        $queryBuilder->select('count(a.id) as value');
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
 }
