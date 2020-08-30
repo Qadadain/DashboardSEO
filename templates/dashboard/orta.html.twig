@@ -2,5 +2,16 @@
 {% block page_title 'Dashboard d\'Orta' %}
 
 {% block page_content %}
-    <p>Orta</p>
+    <div class="row">
+        <div class="col-sm-3">
+            <h4>Nombre de NDD :</h4>
+            <h5>{{ count }}</h5>
+            <h4>Noms des NDD :</h4>
+            {% for ndd in ndds %}
+                <div>
+                    <p>- {{ ndd.name }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
