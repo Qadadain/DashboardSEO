@@ -7,6 +7,7 @@ use App\Entity\Sale;
 use App\Entity\Customer;
 use App\Entity\User;
 use App\Repository\DomainNameRepository;
+use App\Repository\SaleRepository;
 use App\Repository\UserRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -19,26 +20,21 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class DashboardController extends AbstractDashboardController
 {
-    /**
-     * @var DomainNameRepository
-     */
-    protected DomainNameRepository $domainNameRepository;
-
-    public function __construct(
-        DomainNameRepository $domainNameRepository
-    )
-    {
-      $this->domainNameRepository = $domainNameRepository;
-    }
 
     /**
-     * @Route("/")
+     * @Route("/", name="home")
+     * @param SaleRepository $saleRepository
+     * @param DomainNameRepository $domainNameRepository
+     * @return Response
      */
-    public function index(): Response
+    public function mainDash(SaleRepository $saleRepository, DomainNameRepository $domainNameRepository): Response
     {
+        $allDomain = $domainNameRepository->findAll();
+
         return $this->render('bundles/EasyAdminBundle/welcome.html.twig', [
-            'countNdd' => $this->domainNameRepository->countAllNdd()
-    ]);
+            'allSales' => $saleRepository->sumSales()[1],
+            'countNdd' => count($allDomain),
+        ]);
     }
 
     /**
@@ -46,7 +42,7 @@ class DashboardController extends AbstractDashboardController
      * @param UserRepository $userRepository
      * @return Response
      */
-    public function hellsaya(UserRepository $userRepository)
+    public function hellsaya(UserRepository $userRepository, SaleRepository $saleRepository)
     {
         $user = $userRepository->find(2)->getDomainNames()->toArray($userRepository);
         $nbNdd = count($user);
@@ -96,7 +92,7 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linktoRoute('Dashboard', 'fa fa-home', 'admin_home');
 //ici je vais mettre linkToRadmin
         yield MenuItem::section('Dashboard utilisateur');
         yield MenuItem::linktoRoute('Dashboard Hellsaya', 'fas fa-cat', 'admin_hellsaya');

@@ -4,11 +4,15 @@
 
 {% block page_content %}
     <div class="row">
-        <div class="col-sm-3 justify-content-center">
+        <div class="col-sm-3 d-flex">
             <h4>Nombre de NDD :</h4>
-            <h5>{{ countNdd['value'] }}</h5>
+            <h5>{{ countNdd }}</h5>
         </div>
-        <div class="col-sm-8 d-flex justify-content-center">
+            <div class="col-sm-3 d-flex">
+            <h4>Total des ventes</h4>
+            <h5>{{  allSales }} €</h5>
+        </div>
+        <div class="col-sm-8">
             <h4>ICI CAMEMBERT</h4>
         </div>
     </div>
