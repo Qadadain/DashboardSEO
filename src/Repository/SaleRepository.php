@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Sale;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +20,19 @@ class SaleRepository extends ServiceEntityRepository
         parent::__construct($registry, Sale::class);
     }
 
-    // /**
-    //  * @return Sale[] Returns an array of Sale objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function sumSales()
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+            ->select('SUM(s.price)')
+            ->getQuery()->getOneOrNullResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Sale
+   public function userSumSales(User $user)
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->select('SUM(s.price)')
+            ->where('s.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()->getOneOrNullResult();
     }
-    */
 }
+
