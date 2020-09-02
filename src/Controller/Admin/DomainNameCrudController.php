@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 
 class DomainNameCrudController extends AbstractCrudController
 {
@@ -24,7 +25,7 @@ class DomainNameCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('name', 'Nom :'),
+            UrlField::new('name', 'Nom :'),
             TextField::new('localisation', 'Registrar :'),
             DateField::new('expirationDate', 'Date d\'expiration :'),
             AssociationField::new('holder', 'Titulaire :'),
