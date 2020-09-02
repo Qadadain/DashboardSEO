@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 
 class SaleCrudController extends AbstractCrudController
 {
@@ -25,18 +26,20 @@ class SaleCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('link', 'Liens de l\'article'),
-            IntegerField::new('price', 'Prix'),
-            DateField::new('date'),
-            AssociationField::new('customer', 'Client'),
-            AssociationField::new('domainName', 'Nom de domaine'),
-            AssociationField::new('user', 'Titulaire'),
+            UrlField::new('link', 'Liens de l\'article :'),
+            TextField::new('saleNumber', 'Numéro de vente :'),
+            UrlField::new('target', 'Cible :'),
+            IntegerField::new('price', 'Prix :'),
+            DateField::new('date', 'Date :'),
+            AssociationField::new('customer', 'Client :'),
+            AssociationField::new('domainName', 'Nom de domaine :'),
+            AssociationField::new('user', 'Titulaire :'),
         ];
     }
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
 
-            ->setSearchFields(['id','link','price','date','customer.name', 'domainName.name','user.pseudo']);
+            ->setSearchFields(['id','link', 'target', 'saleNumber', 'price','date','customer.name', 'domainName.name','user.pseudo']);
     }
 }
