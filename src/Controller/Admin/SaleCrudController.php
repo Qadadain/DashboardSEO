@@ -26,13 +26,13 @@ class SaleCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            UrlField::new('link', 'Liens de l\'article :'),
-            TextField::new('saleNumber', 'Numéro de vente :'),
+            UrlField::new('link', 'Article vendu :'),
+            TextField::new('saleNumber', 'N° de vente :'),
             UrlField::new('target', 'Cible :'),
             IntegerField::new('price', 'Prix :'),
             DateField::new('date', 'Date :'),
             AssociationField::new('customer', 'Client :'),
-            AssociationField::new('domainName', 'Nom de domaine :'),
+            AssociationField::new('domainName', 'NDD :'),
             AssociationField::new('user', 'Titulaire :'),
         ];
     }
