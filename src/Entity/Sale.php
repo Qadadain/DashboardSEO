@@ -49,6 +49,16 @@ class Sale
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $target;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $saleNumber;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,6 +132,30 @@ class Sale
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTarget(): ?string
+    {
+        return $this->target;
+    }
+
+    public function setTarget(string $target): self
+    {
+        $this->target = $target;
+
+        return $this;
+    }
+
+    public function getSaleNumber(): ?string
+    {
+        return $this->saleNumber;
+    }
+
+    public function setSaleNumber(string $saleNumber): self
+    {
+        $this->saleNumber = $saleNumber;
 
         return $this;
     }

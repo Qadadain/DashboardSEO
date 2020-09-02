@@ -35,6 +35,16 @@ class DomainName
      */
     private $sales;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $localisation;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $expirationDate;
+
     public function __construct()
     {
         $this->sales = new ArrayCollection();
@@ -99,6 +109,30 @@ class DomainName
                 $sale->setDomainName(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLocalisation(): ?string
+    {
+        return $this->localisation;
+    }
+
+    public function setLocalisation(string $localisation): self
+    {
+        $this->localisation = $localisation;
+
+        return $this;
+    }
+
+    public function getExpirationDate(): ?\DateTimeInterface
+    {
+        return $this->expirationDate;
+    }
+
+    public function setExpirationDate(\DateTimeInterface $expirationDate): self
+    {
+        $this->expirationDate = $expirationDate;
 
         return $this;
     }
