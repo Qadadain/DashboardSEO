@@ -26,13 +26,13 @@ class SaleRepository extends ServiceEntityRepository
             ->select('SUM(s.price)')
             ->getQuery()->getOneOrNullResult();
     }
-/*    public function sumSales(User $user)
+   public function userSumSales(User $user)
     {
         return $this->createQueryBuilder('s')
             ->select('SUM(s.price)')
             ->where('s.user = :user')
             ->setParameter('user', $user)
             ->getQuery()->getOneOrNullResult();
-    }*/
+    }
 }
 

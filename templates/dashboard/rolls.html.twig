@@ -5,17 +5,21 @@
     <div class="row">
         <div class="col-sm-3">
             <div class="mb-2 border-danger">
-            <h4>Nombre de NDD :</h4>
-            <h5>{{ count }}</h5>
+                <h4>Nombre de NDD :</h4>
+                <h5>{{ count }}</h5>
             </div>
             <div>
-            <h4>Noms des NDD :</h4>
-            {% for ndd in ndds %}
-                <div>
-                    <p>- {{ ndd.name }}</p>
-                </div>
-            {% endfor %}
+                <h4>Noms des NDD :</h4>
+                {% for ndd in ndds %}
+                    <div>
+                        <p>- {{ ndd.name }}</p>
+                    </div>
+                {% endfor %}
             </div>
         </div>
+            <div>
+                <h4>Total des ventes</h4>
+                <p>{{ sum }}</p>
+            </div>
     </div>
 {% endblock %}

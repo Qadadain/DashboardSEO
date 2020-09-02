@@ -40,47 +40,60 @@ class DashboardController extends AbstractDashboardController
     /**
      * @Route("/hellsaya", name="hellsaya")
      * @param UserRepository $userRepository
+     * @param SaleRepository $saleRepository
      * @return Response
      */
     public function hellsaya(UserRepository $userRepository, SaleRepository $saleRepository)
     {
         $user = $userRepository->find(2)->getDomainNames()->toArray($userRepository);
         $nbNdd = count($user);
+        $sumSales = $saleRepository->userSumSales($userRepository->find(2));
+        $sumSales = implode($sumSales);
 
         return $this->render('dashboard/hellsaya.html.twig', [
             'ndds' => $user,
             'count' => $nbNdd,
+            'sum' => $sumSales,
         ]);
     }
 
     /**
      * @Route("/orta", name="orta")
      * @param UserRepository $userRepository
+     * @param SaleRepository $saleRepository
      * @return Response
      */
-    public function orta(UserRepository $userRepository)
+    public function orta(UserRepository $userRepository, SaleRepository $saleRepository)
     {
         $user = $userRepository->find(3)->getDomainNames()->toArray($userRepository);
         $nbNdd = count($user);
+        $sumSales = $saleRepository->userSumSales($userRepository->find(3));
+        $sumSales = implode($sumSales);
+
         return $this->render('dashboard/orta.html.twig', [
-            'ndds' => $user,
+            'ndds'  => $user,
             'count' => $nbNdd,
+            'sum'   => $sumSales
         ]);
     }
 
     /**
      * @Route("/rolls", name="rolls")
      * @param UserRepository $userRepository
+     * @param SaleRepository $saleRepository
      * @return Response
      */
-    public function rolls(UserRepository $userRepository)
+    public function rolls(UserRepository $userRepository, SaleRepository $saleRepository)
     {
         $user = $userRepository->find(1)->getDomainNames()->toArray($userRepository);
         $nbNdd = count($user);
+        $sumSales = $saleRepository->userSumSales($userRepository->find(1));
+        $sumSales = implode($sumSales);
 
         return $this->render('dashboard/rolls.html.twig', [
-            'ndds' => $user,
+            'ndds'  => $user,
             'count' => $nbNdd,
+            'sum'   => $sumSales,
         ]);
     }
 
