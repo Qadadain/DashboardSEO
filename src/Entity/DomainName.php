@@ -41,7 +41,7 @@ class DomainName
     private $localisation;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $expirationDate;
 
@@ -130,10 +130,11 @@ class DomainName
         return $this->expirationDate;
     }
 
-    public function setExpirationDate(\DateTimeInterface $expirationDate): self
+    public function setExpirationDate(?\DateTimeInterface $expirationDate): self
     {
         $this->expirationDate = $expirationDate;
 
         return $this;
     }
+
 }
