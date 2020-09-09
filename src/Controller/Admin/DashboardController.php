@@ -6,13 +6,10 @@ use App\Entity\DomainName;
 use App\Entity\Sale;
 use App\Entity\Customer;
 use App\Entity\User;
-use App\Repository\DomainNameRepository;
-use App\Repository\SaleRepository;
-use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\DashboardDto;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -24,18 +21,18 @@ class DashboardController extends AbstractDashboardController
 
     /**
      * @Route("/", name="home")
-     * @param SaleRepository $saleRepository
-     * @param DomainNameRepository $domainNameRepository
+     * @param EntityManagerInterface $em
      * @return Response
      */
-    public function mainDash(SaleRepository $saleRepository, DomainNameRepository $domainNameRepository): Response
+    public function mainDash(EntityManagerInterface $em): Response
     {
-        $allDomain = $domainNameRepository->findAll();
-        $sumByNdd = $saleRepository->sumByDomain();
-        $sumByCustomer = $saleRepository->sumByIntermediate();
-        dd($sumByCustomer);
+        $sale = $em->getRepository('App:Sale');
+        $dName = $em->getRepository('App:DomainName');
+
+        $allDomain = $dName->findAll();
+        $sumByNdd = $sale->sumByDomain();
         return $this->render('bundles/EasyAdminBundle/welcome.html.twig', [
-            'allSales' => $saleRepository->sumSales()[1],
+            'allSales' => $sale->sumSales()[1],
             'countNdd' => count($allDomain),
             'sumByNdds' => $sumByNdd
         ]);
@@ -43,15 +40,17 @@ class DashboardController extends AbstractDashboardController
 
     /**
      * @Route("/hellsaya", name="hellsaya")
-     * @param UserRepository $userRepository
-     * @param SaleRepository $saleRepository
+     * @param EntityManagerInterface $em
      * @return Response
      */
-    public function hellsaya(UserRepository $userRepository, SaleRepository $saleRepository)
+    public function hellsaya(EntityManagerInterface $em)
     {
-        $ndd = $userRepository->find(2)->getDomainNames()->toArray($userRepository);
+        $sale = $em->getRepository('App:Sale');
+        $user = $em->getRepository('App:User');
+
+        $ndd = $user->find(2)->getDomainNames()->toArray($user);
         $nbNdd = count($ndd);
-        $sumSales = $saleRepository->userSumSales($userRepository->find(2));
+        $sumSales = $sale->userSumSales($user->find(2));
         $sumSales = implode($sumSales);
 
         return $this->render('dashboard/hellsaya.html.twig', [
@@ -63,15 +62,18 @@ class DashboardController extends AbstractDashboardController
 
     /**
      * @Route("/orta", name="orta")
-     * @param UserRepository $userRepository
-     * @param SaleRepository $saleRepository
+     * @param EntityManagerInterface $em
      * @return Response
      */
-    public function orta(UserRepository $userRepository, SaleRepository $saleRepository)
+    public function orta(EntityManagerInterface $em)
     {
-        $ndd = $userRepository->find(3)->getDomainNames()->toArray($userRepository);
+        $user = $em->getRepository('App:User');
+        $sale = $em->getRepository('App:Sale');
+
+
+        $ndd = $user->find(3)->getDomainNames()->toArray($user);
         $nbNdd = count($ndd);
-        $sumSales = $saleRepository->userSumSales($userRepository->find(3));
+        $sumSales = $sale->userSumSales($user->find(3));
         $sumSales = implode($sumSales);
 
         return $this->render('dashboard/orta.html.twig', [
@@ -83,15 +85,17 @@ class DashboardController extends AbstractDashboardController
 
     /**
      * @Route("/rolls", name="rolls")
-     * @param UserRepository $userRepository
-     * @param SaleRepository $saleRepository
+     * @param EntityManagerInterface $em
      * @return Response
      */
-    public function rolls(UserRepository $userRepository, SaleRepository $saleRepository)
+    public function rolls(EntityManagerInterface $em)
     {
-        $ndd = $userRepository->find(1)->getDomainNames()->toArray($userRepository);
+        $user = $em->getRepository('App:User');
+        $sale = $em->getRepository('App:Sale');
+
+        $ndd = $user->find(1)->getDomainNames()->toArray($user);
         $nbNdd = count($ndd);
-        $sumSales = $saleRepository->userSumSales($userRepository->find(1));
+        $sumSales = $sale->userSumSales($user->find(1));
         $sumSales = implode($sumSales);
 
         return $this->render('dashboard/rolls.html.twig', [
