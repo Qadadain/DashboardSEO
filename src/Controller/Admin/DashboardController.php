@@ -26,11 +26,13 @@ class DashboardController extends AbstractDashboardController
      */
     public function mainDash(EntityManagerInterface $em): Response
     {
+        // Repository
         $sale = $em->getRepository('App:Sale');
         $dName = $em->getRepository('App:DomainName');
 
         $allDomain = $dName->findAll();
         $sumByNdd = $sale->sumByDomain();
+
         return $this->render('bundles/EasyAdminBundle/welcome.html.twig', [
             'allSales' => $sale->sumSales()[1],
             'countNdd' => count($allDomain),
@@ -43,8 +45,9 @@ class DashboardController extends AbstractDashboardController
      * @param EntityManagerInterface $em
      * @return Response
      */
-    public function hellsaya(EntityManagerInterface $em)
+    public function hellsaya(EntityManagerInterface $em): Response
     {
+        // Repository
         $sale = $em->getRepository('App:Sale');
         $user = $em->getRepository('App:User');
 
@@ -65,11 +68,11 @@ class DashboardController extends AbstractDashboardController
      * @param EntityManagerInterface $em
      * @return Response
      */
-    public function orta(EntityManagerInterface $em)
+    public function orta(EntityManagerInterface $em): Response
     {
+        // Repository
         $user = $em->getRepository('App:User');
         $sale = $em->getRepository('App:Sale');
-
 
         $ndd = $user->find(3)->getDomainNames()->toArray($user);
         $nbNdd = count($ndd);
@@ -88,8 +91,9 @@ class DashboardController extends AbstractDashboardController
      * @param EntityManagerInterface $em
      * @return Response
      */
-    public function rolls(EntityManagerInterface $em)
+    public function rolls(EntityManagerInterface $em): Response
     {
+        // Repository
         $user = $em->getRepository('App:User');
         $sale = $em->getRepository('App:Sale');
 
@@ -114,7 +118,6 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoRoute('Dashboard', 'fa fa-home', 'admin_home');
-//ici je vais mettre linkToRadmin
         yield MenuItem::section('Dashboard utilisateur');
         yield MenuItem::linktoRoute('Dashboard Hellsaya', 'fas fa-cat', 'admin_hellsaya');
         yield MenuItem::linkToRoute('Dashboard Orta', 'fas fa-crow', 'admin_orta');
