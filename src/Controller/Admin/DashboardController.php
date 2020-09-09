@@ -12,6 +12,7 @@ use App\Repository\UserRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\DashboardDto;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -30,10 +31,13 @@ class DashboardController extends AbstractDashboardController
     public function mainDash(SaleRepository $saleRepository, DomainNameRepository $domainNameRepository): Response
     {
         $allDomain = $domainNameRepository->findAll();
-
+        $sumByNdd = $saleRepository->sumByDomain();
+        $sumByCustomer = $saleRepository->sumByIntermediate();
+        dd($sumByCustomer);
         return $this->render('bundles/EasyAdminBundle/welcome.html.twig', [
             'allSales' => $saleRepository->sumSales()[1],
             'countNdd' => count($allDomain),
+            'sumByNdds' => $sumByNdd
         ]);
     }
 
@@ -45,13 +49,13 @@ class DashboardController extends AbstractDashboardController
      */
     public function hellsaya(UserRepository $userRepository, SaleRepository $saleRepository)
     {
-        $user = $userRepository->find(2)->getDomainNames()->toArray($userRepository);
-        $nbNdd = count($user);
+        $ndd = $userRepository->find(2)->getDomainNames()->toArray($userRepository);
+        $nbNdd = count($ndd);
         $sumSales = $saleRepository->userSumSales($userRepository->find(2));
         $sumSales = implode($sumSales);
 
         return $this->render('dashboard/hellsaya.html.twig', [
-            'ndds' => $user,
+            'ndds' => $ndd,
             'count' => $nbNdd,
             'sum' => $sumSales,
         ]);
@@ -65,13 +69,13 @@ class DashboardController extends AbstractDashboardController
      */
     public function orta(UserRepository $userRepository, SaleRepository $saleRepository)
     {
-        $user = $userRepository->find(3)->getDomainNames()->toArray($userRepository);
-        $nbNdd = count($user);
+        $ndd = $userRepository->find(3)->getDomainNames()->toArray($userRepository);
+        $nbNdd = count($ndd);
         $sumSales = $saleRepository->userSumSales($userRepository->find(3));
         $sumSales = implode($sumSales);
 
         return $this->render('dashboard/orta.html.twig', [
-            'ndds'  => $user,
+            'ndds'  => $ndd,
             'count' => $nbNdd,
             'sum'   => $sumSales
         ]);
@@ -85,13 +89,13 @@ class DashboardController extends AbstractDashboardController
      */
     public function rolls(UserRepository $userRepository, SaleRepository $saleRepository)
     {
-        $user = $userRepository->find(1)->getDomainNames()->toArray($userRepository);
-        $nbNdd = count($user);
+        $ndd = $userRepository->find(1)->getDomainNames()->toArray($userRepository);
+        $nbNdd = count($ndd);
         $sumSales = $saleRepository->userSumSales($userRepository->find(1));
         $sumSales = implode($sumSales);
 
         return $this->render('dashboard/rolls.html.twig', [
-            'ndds'  => $user,
+            'ndds'  => $ndd,
             'count' => $nbNdd,
             'sum'   => $sumSales,
         ]);
