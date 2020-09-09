@@ -16,6 +16,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "chart.js": "^2.9.3",
         "materialize-css": "^1.0.0"
     }
 }

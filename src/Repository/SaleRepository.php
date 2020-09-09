@@ -34,5 +34,19 @@ class SaleRepository extends ServiceEntityRepository
             ->setParameter('user', $user)
             ->getQuery()->getOneOrNullResult();
     }
+    public function sumByDomain(){
+        return $this->createQueryBuilder('s')
+            ->select('SUM(s.price) as price')
+            ->innerJoin('s.domainName', 'd')->addSelect('d.name')
+            ->groupBy('d.name')
+            ->getQuery()->getResult();
+    }
+    public function sumByIntermediate(){
+        return $this->createQueryBuilder('s')
+            ->select('SUM(s.price) as price')
+            ->innerJoin('s.customer', 'c')->addSelect('c.name')
+            ->groupBy('c.name')
+            ->getQuery()->getResult();
+    }
 }
 

@@ -1,19 +1,33 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
 {% block page_title 'Bienvenue sur le Dashboard' %}
-
+    {% block head_stylesheets %}
+        {{ parent() }}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 {% block page_content %}
     <div class="row">
-        <div class="col-sm-3 d-flex">
-            <h4>Nombre de NDD :</h4>
-            <h5>{{ countNdd }}</h5>
+        <div class="col-sm-3 d-flex flex-column mr-1 card-panel teal">
+            <h5>Nombre de NDD :</h5>
+            <h6>{{ countNdd }}</h6>
         </div>
-        <div class="col-sm-3 d-flex">
-            <h4>Total des ventes</h4>
-            <h5>{{ allSales }} €</h5>
+        <div class="col-sm-3 d-flex flex-column mr-1 card-panel teal">
+            <h5>Total des ventes :</h5>
+            <h6>{{ allSales }} €</h6>
         </div>
         <div class="col-sm-8">
             <h4>ICI CAMEMBERT</h4>
+            {% for sumByNdd in sumByNdds %}
+            {{ sumByNdd.name }}
+            {{ sumByNdd.price }}
+            {% endfor %}
+        </div>
+        <div>
+    <canvas id="myChart" width="400" height="400"></canvas>
         </div>
     </div>
 {% endblock %}
+    {% block body_javascript %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('chartJs') }}
+    {% endblock body_javascript %}
