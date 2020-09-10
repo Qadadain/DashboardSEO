@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ColorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -24,6 +25,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('pseudo', 'Pseudo'),
             TextField::new('lastName', 'Nom'),
             TextField::new('firstName', 'Prénom'),
+            ColorField::new('color', 'Couleur :'),
             EmailField::new('email', 'Email'),
             TextField::new('role', 'Rôle')->hideOnForm(),
         ];

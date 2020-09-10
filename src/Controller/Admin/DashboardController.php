@@ -6,7 +6,6 @@ use App\Entity\DomainName;
 use App\Entity\Sale;
 use App\Entity\Customer;
 use App\Entity\User;
-use App\Repository\CustomerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -44,6 +43,7 @@ class DashboardController extends AbstractDashboardController
             $dNameColor[] = $allSaleDname['color'];
             $dNamePrice[] = $allSaleDname['price'];
         }
+
 // Données pour Chart JS sumPerCustomer
         $intermediates = $sale->sumByIntermediate();
         $categNom = [];
@@ -54,8 +54,19 @@ class DashboardController extends AbstractDashboardController
             $categNom[] = $intermediate['name'];
             $categColor[] = $intermediate['color'];
             $categPrice[] = $intermediate['price'];
-
         }
+
+// Données pour Chart JS sumPerUser
+        $countByUsers = $sale->sumByUser();
+            $userName = [];
+            $userColor =[];
+            $userPrice = [];
+
+            foreach ($countByUsers as $countByUser){
+                $userName[] = $countByUser['pseudo'];
+                $userColor[] = $countByUser['color'];
+                $userPrice[] = $countByUser['price'];
+            }
 
         $allDomain = $dName->findAll();
         $sumByNdd = $sale->sumByDomain();
@@ -64,12 +75,19 @@ class DashboardController extends AbstractDashboardController
             'allSales' => $sale->sumSales()[1],
             'countNdd' => count($allDomain),
             'sumByNdds' => $sumByNdd,
+            // Données pour Chart JS sumPerCustomer
             'categNom' => json_encode($categNom),
             'categColor' => json_encode($categColor),
             'categPrice' => json_encode($categPrice),
+            // Données pour Chart JS sumPerDnName
             'dNameName' => json_encode($dNameName),
             'dNameColor' => json_encode($dNameColor),
             'dNamePrice' => json_encode($dNamePrice),
+            // Données pour Chart JS sumPerUser
+            'userName' => json_encode($userName),
+            'userColor' => json_encode($userColor),
+            'userPrice' => json_encode($userPrice),
+
         ]);
     }
 
@@ -151,13 +169,13 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoRoute('Dashboard', 'fa fa-home', 'admin_home');
-        yield MenuItem::section('Dashboard utilisateur');
-        yield MenuItem::linktoRoute('Dashboard Hellsaya', 'fas fa-cat', 'admin_hellsaya');
-        yield MenuItem::linkToRoute('Dashboard Orta', 'fas fa-crow', 'admin_orta');
-        yield MenuItem::linkToRoute('Dashboard Rolls', 'fas fa-ghost', 'admin_rolls');
+        yield MenuItem::section('Dashboard User');
+        yield MenuItem::linktoRoute('Hellsaya', 'fas fa-cat', 'admin_hellsaya');
+        yield MenuItem::linkToRoute('Orta', 'fas fa-crow', 'admin_orta');
+        yield MenuItem::linkToRoute('Rolls', 'fas fa-ghost', 'admin_rolls');
 
 
-        yield MenuItem::section('Dashboard CRUD');
+        yield MenuItem::section('CRUD');
         yield MenuItem::linkToCrud('Intermédiaires', 'fas fa-building', Customer::class);
         yield MenuItem::linkToCrud('Nom de domaines', 'fas fa-globe', DomainName::class);
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-poo', User::class);

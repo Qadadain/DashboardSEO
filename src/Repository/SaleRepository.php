@@ -34,6 +34,9 @@ class SaleRepository extends ServiceEntityRepository
             ->setParameter('user', $user)
             ->getQuery()->getOneOrNullResult();
     }
+
+    // MAIN DASHBOARD
+
     public function sumByDomain(){
         return $this->createQueryBuilder('s')
             ->select('SUM(s.price) as price')
@@ -43,6 +46,7 @@ class SaleRepository extends ServiceEntityRepository
             ->groupBy('d.name', 'd.color')
             ->getQuery()->getResult();
     }
+
     public function sumByIntermediate(){
         return $this->createQueryBuilder('s')
             ->select('SUM(s.price) as price')
@@ -52,5 +56,21 @@ class SaleRepository extends ServiceEntityRepository
             ->groupBy('c.name', 'c.color')
             ->getQuery()->getArrayResult();
     }
+
+    public function sumByUser(){
+        return $this->createQueryBuilder('s')
+            ->select('SUM(s.price) as price')
+            ->innerJoin('s.user', 'u')
+            ->addSelect('u.pseudo')
+            ->addSelect('u.color')
+            ->groupBy('u.pseudo', 'u.color')
+            ->getQuery()->getArrayResult();
+    }
+    // HELLSAYA DASHBOARD
+
+    // ORTA DASHBOARD
+
+    // ROLLS DASHBOARD
+
 }
 
