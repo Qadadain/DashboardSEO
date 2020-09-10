@@ -6,6 +6,7 @@ use App\Entity\DomainName;
 use App\Entity\Sale;
 use App\Entity\Customer;
 use App\Entity\User;
+use App\Repository\CustomerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -29,7 +30,32 @@ class DashboardController extends AbstractDashboardController
         // Repository
         $sale = $em->getRepository('App:Sale');
         $dName = $em->getRepository('App:DomainName');
+        $customer = $em->getRepository('App:Customer');
 
+
+// Données pour Chart JS sumPerDnName
+        $allSaleDnames = $sale->sumByDomain();
+        $dNameName = [];
+        $dNameColor = [];
+        $dNamePrice = [];
+
+        foreach ($allSaleDnames as $allSaleDname){
+            $dNameName[] = $allSaleDname['name'];
+            $dNameColor[] = $allSaleDname['color'];
+            $dNamePrice[] = $allSaleDname['price'];
+        }
+// Données pour Chart JS sumPerCustomer
+        $intermediates = $sale->sumByIntermediate();
+        $categNom = [];
+        $categColor = [];
+        $categPrice = [];
+
+        foreach ( $intermediates as $intermediate){
+            $categNom[] = $intermediate['name'];
+            $categColor[] = $intermediate['color'];
+            $categPrice[] = $intermediate['price'];
+
+        }
 
         $allDomain = $dName->findAll();
         $sumByNdd = $sale->sumByDomain();
@@ -37,7 +63,13 @@ class DashboardController extends AbstractDashboardController
         return $this->render('bundles/EasyAdminBundle/welcome.html.twig', [
             'allSales' => $sale->sumSales()[1],
             'countNdd' => count($allDomain),
-            'sumByNdds' => $sumByNdd
+            'sumByNdds' => $sumByNdd,
+            'categNom' => json_encode($categNom),
+            'categColor' => json_encode($categColor),
+            'categPrice' => json_encode($categPrice),
+            'dNameName' => json_encode($dNameName),
+            'dNameColor' => json_encode($dNameColor),
+            'dNamePrice' => json_encode($dNamePrice),
         ]);
     }
 

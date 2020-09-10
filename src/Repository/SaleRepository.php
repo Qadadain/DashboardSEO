@@ -44,9 +44,11 @@ class SaleRepository extends ServiceEntityRepository
     public function sumByIntermediate(){
         return $this->createQueryBuilder('s')
             ->select('SUM(s.price) as price')
-            ->innerJoin('s.customer', 'c')->addSelect('c.name')
-            ->groupBy('c.name')
-            ->getQuery()->getResult();
+            ->innerJoin('s.customer', 'c')
+            ->addSelect('c.name')
+            ->addSelect('c.color')
+            ->groupBy('c.name', 'c.color')
+            ->getQuery()->getArrayResult();
     }
 }
 

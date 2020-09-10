@@ -15,19 +15,41 @@
             <h5>Total des ventes :</h5>
             <h6>{{ allSales }} €</h6>
         </div>
-        <div class="col-sm-8">
-            <h4>ICI CAMEMBERT</h4>
-            {% for sumByNdd in sumByNdds %}
-            {{ sumByNdd.name }}
-            {{ sumByNdd.price }}
-            {% endfor %}
+        <div class="col-sm-6">
+            <canvas id="sumPerCustomer" width="400" height="400"></canvas>
         </div>
-        <div>
-    <canvas id="myChart" width="400" height="400"></canvas>
+        <div class="col-sm-6">
+            <canvas id="sumPerDname" width="400" height="400"></canvas>
         </div>
     </div>
 {% endblock %}
     {% block body_javascript %}
         {{ parent() }}
-        {{ encore_entry_script_tags('chartJs') }}
+        {{ encore_entry_script_tags('app') }}
+        <script>
+            let customers = document.querySelector("#sumPerCustomer")
+            let customerGraph = new Chart(customers, {
+                type: "pie",
+                data: {
+                    labels: {{ categNom|raw }},
+                    datasets: [{
+                        label: "Répartition des catégories",
+                        data: {{ categPrice|raw }},
+                        backgroundColor: {{ categColor|raw }}
+                    }]
+                }
+            })
+            let dName = document.querySelector("#sumPerDname")
+            let dNameGraph = new Chart(dName, {
+                type: "pie",
+                data: {
+                    labels: {{ dNameName|raw }},
+                    datasets: [{
+                        label: "Répartition des catégories",
+                        data: {{ dNamePrice|raw }},
+                        backgroundColor: {{ dNameColor|raw }}
+                    }]
+                }
+            })
+        </script>
     {% endblock body_javascript %}

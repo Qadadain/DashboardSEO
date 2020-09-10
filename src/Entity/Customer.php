@@ -29,6 +29,11 @@ class Customer
      */
     private $sales;
 
+    /**
+     * @ORM\Column(type="string", length=7, nullable=true)
+     */
+    private $color;
+
     public function __construct()
     {
         $this->sales = new ArrayCollection();
@@ -82,6 +87,18 @@ class Customer
                 $sale->setCustomer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }

@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Customer;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ColorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -22,6 +23,7 @@ class CustomerCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             UrlField::new('name', 'Nom'),
+            ColorField::new('color', 'Couleur'),
         ];
     }
 
