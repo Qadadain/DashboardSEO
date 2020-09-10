@@ -37,8 +37,10 @@ class SaleRepository extends ServiceEntityRepository
     public function sumByDomain(){
         return $this->createQueryBuilder('s')
             ->select('SUM(s.price) as price')
-            ->innerJoin('s.domainName', 'd')->addSelect('d.name')
-            ->groupBy('d.name')
+            ->innerJoin('s.domainName', 'd')
+            ->addSelect('d.name')
+            ->addSelect('d.color')
+            ->groupBy('d.name', 'd.color')
             ->getQuery()->getResult();
     }
     public function sumByIntermediate(){

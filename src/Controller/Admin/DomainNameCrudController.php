@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ColorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -26,6 +27,7 @@ class DomainNameCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             UrlField::new('name', 'Nom :'),
+            ColorField::new('color', 'Couleur :'),
             TextField::new('localisation', 'Registrar :'),
             DateField::new('expirationDate', 'Date d\'expiration :'),
             AssociationField::new('holder', 'Titulaire :'),
