@@ -30,6 +30,7 @@ class DashboardController extends AbstractDashboardController
         $sale = $em->getRepository('App:Sale');
         $dName = $em->getRepository('App:DomainName');
 
+
         $allDomain = $dName->findAll();
         $sumByNdd = $sale->sumByDomain();
 
