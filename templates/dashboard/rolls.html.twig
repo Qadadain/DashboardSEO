@@ -17,12 +17,37 @@
                 {% endfor %}
             </div>
         </div>
-            <div>
-                <h4>Total des ventes</h4>
-                <p>{{ sum }}</p>
-            </div>
+        <div>
+            <h4>Total des ventes</h4>
+            <p>{{ sum }}</p>
+        </div>
+    </div>
+    <div class="d-flex">
+        <div class="col-sm-4">
+            <canvas id="rollsDname" width="400" height="400"></canvas>
+        </div>
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+        </div>
+    </div>
+    <div class="col-sm-12">
     </div>
 {% endblock %}
  {% block body_javascript %}
-     <script></script>
+     {{ encore_entry_script_tags('app') }}
+     <script>
+         let rollsDname = document.querySelector("#rollsDname")
+         let rollsDnameGraph = new Chart(rollsDname, {
+             type: "doughnut",
+             data: {
+                 labels: {{ rollsDname|raw }},
+                 datasets: [{
+                     label: "Répartition des catégories",
+                     data: {{ sumDname|raw }},
+                     backgroundColor: {{ colorDname|raw }}
+                 }]
+             }
+         })
+     </script>
  {% endblock body_javascript %}

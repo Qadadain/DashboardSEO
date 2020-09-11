@@ -32,7 +32,6 @@
 {% endblock %}
 {% block body_javascript %}
     {{ parent() }}
-    {{ encore_entry_script_tags('app') }}
     <script>
         let customers = document.querySelector("#sumPerCustomer")
         let customerGraph = new Chart(customers, {

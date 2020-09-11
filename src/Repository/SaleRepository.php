@@ -67,10 +67,39 @@ class SaleRepository extends ServiceEntityRepository
             ->getQuery()->getArrayResult();
     }
     // HELLSAYA DASHBOARD
+    public function sumDnameHellsaya(){
+        return $this->createQueryBuilder('s')
+            ->select('SUM(s.price) as price')
+            ->innerJoin('s.domainName', 'd')
+            ->addSelect('d.name')
+            ->addSelect('d.color')
+            ->where('s.user = 2')
+            ->groupBy('d.name', 'd.color')
+            ->getQuery()->getArrayResult();
+    }
 
     // ORTA DASHBOARD
+    public function sumDnameOrta(){
+        return $this->createQueryBuilder('s')
+            ->select('SUM(s.price) as price')
+            ->innerJoin('s.domainName', 'd')
+            ->addSelect('d.name')
+            ->addSelect('d.color')
+            ->where('s.user = 3')
+            ->groupBy('d.name', 'd.color')
+            ->getQuery()->getArrayResult();
+    }
 
     // ROLLS DASHBOARD
-
+    public function sumDnameRolls(){
+        return $this->createQueryBuilder('s')
+            ->select('SUM(s.price) as price')
+            ->innerJoin('s.domainName', 'd')
+            ->addSelect('d.name')
+            ->addSelect('d.color')
+            ->where('s.user = 1')
+            ->groupBy('d.name', 'd.color')
+            ->getQuery()->getArrayResult();
+    }
 }
 

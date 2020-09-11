@@ -46,47 +46,47 @@ class DashboardController extends AbstractDashboardController
 
 // Données pour Chart JS sumPerCustomer
         $intermediates = $sale->sumByIntermediate();
-        $categNom = [];
+        $categNom   = [];
         $categColor = [];
         $categPrice = [];
 
         foreach ( $intermediates as $intermediate){
-            $categNom[] = $intermediate['name'];
+            $categNom[]   = $intermediate['name'];
             $categColor[] = $intermediate['color'];
             $categPrice[] = $intermediate['price'];
         }
 
 // Données pour Chart JS sumPerUser
-        $countByUsers = $sale->sumByUser();
-            $userName = [];
+        $countByUsers  = $sale->sumByUser();
+            $userName  = [];
             $userColor =[];
             $userPrice = [];
 
             foreach ($countByUsers as $countByUser){
-                $userName[] = $countByUser['pseudo'];
+                $userName[]  = $countByUser['pseudo'];
                 $userColor[] = $countByUser['color'];
                 $userPrice[] = $countByUser['price'];
             }
 
         $allDomain = $dName->findAll();
-        $sumByNdd = $sale->sumByDomain();
+        $sumByNdd  = $sale->sumByDomain();
 
         return $this->render('bundles/EasyAdminBundle/welcome.html.twig', [
-            'allSales' => $sale->sumSales()[1],
-            'countNdd' => count($allDomain),
-            'sumByNdds' => $sumByNdd,
+            'allSales'   => $sale->sumSales()[1],
+            'countNdd'   => count($allDomain),
+            'sumByNdds'  => $sumByNdd,
             // Données pour Chart JS sumPerCustomer
-            'categNom' => json_encode($categNom),
+            'categNom'   => json_encode($categNom),
             'categColor' => json_encode($categColor),
             'categPrice' => json_encode($categPrice),
             // Données pour Chart JS sumPerDnName
-            'dNameName' => json_encode($dNameName),
+            'dNameName'  => json_encode($dNameName),
             'dNameColor' => json_encode($dNameColor),
             'dNamePrice' => json_encode($dNamePrice),
             // Données pour Chart JS sumPerUser
-            'userName' => json_encode($userName),
-            'userColor' => json_encode($userColor),
-            'userPrice' => json_encode($userPrice),
+            'userName'   => json_encode($userName),
+            'userColor'  => json_encode($userColor),
+            'userPrice'  => json_encode($userPrice),
 
         ]);
     }
@@ -102,15 +102,31 @@ class DashboardController extends AbstractDashboardController
         $sale = $em->getRepository('App:Sale');
         $user = $em->getRepository('App:User');
 
+        //ChartJS
+        $sumByHellsaya = $sale->sumDnameOrta();
+
+        $hellsayaDname = [];
+        $colorDname = [];
+        $sumDname   = [];
+
+        foreach ($sumByHellsaya as $data){
+            $hellsayaDname[] = $data['name'];
+            $colorDname[] = $data['color'];
+            $sumDname[]   = $data['price'];
+        }
+
         $ndd = $user->find(2)->getDomainNames()->toArray($user);
         $nbNdd = count($ndd);
         $sumSales = $sale->userSumSales($user->find(2));
         $sumSales = implode($sumSales);
 
         return $this->render('dashboard/hellsaya.html.twig', [
-            'ndds' => $ndd,
+            'ndds'  => $ndd,
             'count' => $nbNdd,
-            'sum' => $sumSales,
+            'sum'   => $sumSales,
+            'hellsayaDname' => json_encode($hellsayaDname),
+            'colorDname' => json_encode($colorDname),
+            'sumDname'   => json_encode($sumDname),
         ]);
     }
 
@@ -125,6 +141,19 @@ class DashboardController extends AbstractDashboardController
         $user = $em->getRepository('App:User');
         $sale = $em->getRepository('App:Sale');
 
+        //ChartJS
+        $sumByOrta = $sale->sumDnameOrta();
+
+        $ortaDname = [];
+        $colorDname = [];
+        $sumDname   = [];
+
+        foreach ($sumByOrta as $data){
+            $ortaDname[] = $data['name'];
+            $colorDname[] = $data['color'];
+            $sumDname[]   = $data['price'];
+        }
+
         $ndd = $user->find(3)->getDomainNames()->toArray($user);
         $nbNdd = count($ndd);
         $sumSales = $sale->userSumSales($user->find(3));
@@ -133,7 +162,10 @@ class DashboardController extends AbstractDashboardController
         return $this->render('dashboard/orta.html.twig', [
             'ndds'  => $ndd,
             'count' => $nbNdd,
-            'sum'   => $sumSales
+            'sum'   => $sumSales,
+            'ortaDname' => json_encode($ortaDname),
+            'colorDname' => json_encode($colorDname),
+            'sumDname'   => json_encode($sumDname),
         ]);
     }
 
@@ -148,15 +180,31 @@ class DashboardController extends AbstractDashboardController
         $user = $em->getRepository('App:User');
         $sale = $em->getRepository('App:Sale');
 
+        //ChartJS
+        $sumByRolls = $sale->sumDnameRolls();
+
+        $rollsDname = [];
+        $colorDname = [];
+        $sumDname   = [];
+
+        foreach ($sumByRolls as $data){
+            $rollsDname[] = $data['name'];
+            $colorDname[] = $data['color'];
+            $sumDname[]   = $data['price'];
+        }
+
         $ndd = $user->find(1)->getDomainNames()->toArray($user);
         $nbNdd = count($ndd);
         $sumSales = $sale->userSumSales($user->find(1));
         $sumSales = implode($sumSales);
 
         return $this->render('dashboard/rolls.html.twig', [
-            'ndds'  => $ndd,
-            'count' => $nbNdd,
-            'sum'   => $sumSales,
+            'ndds'       => $ndd,
+            'count'      => $nbNdd,
+            'sum'        => $sumSales,
+            'rollsDname' => json_encode($rollsDname),
+            'colorDname' => json_encode($colorDname),
+            'sumDname'   => json_encode($sumDname),
         ]);
     }
 
