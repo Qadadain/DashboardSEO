@@ -115,6 +115,18 @@ class DashboardController extends AbstractDashboardController
             $sumDname[]   = $data['price'];
         }
 
+        $sumCustomerhellsaya = $sale->sumCustomerHellsaya();
+
+        $hellsayaCustomer = [];
+        $colorCustomer = [];
+        $sumCustomer   = [];
+
+        foreach ($sumCustomerhellsaya as $data){
+            $hellsayaCustomer[] = $data['name'];
+            $colorCustomer[] = $data['color'];
+            $sumCustomer[]   = $data['price'];
+        }
+
         $ndd = $user->find(2)->getDomainNames()->toArray($user);
         $nbNdd = count($ndd);
         $sumSales = $sale->userSumSales($user->find(2));
@@ -127,6 +139,10 @@ class DashboardController extends AbstractDashboardController
             'hellsayaDname' => json_encode($hellsayaDname),
             'colorDname' => json_encode($colorDname),
             'sumDname'   => json_encode($sumDname),
+            // sum By Customer
+            'hellsayaCustomer' => json_encode($hellsayaCustomer),
+            'colorCustomer' => json_encode($colorCustomer),
+            'sumCustomer'   => json_encode($sumCustomer),
         ]);
     }
 
@@ -154,6 +170,18 @@ class DashboardController extends AbstractDashboardController
             $sumDname[]   = $data['price'];
         }
 
+        $sumCustomerOrta = $sale->sumCustomerOrta();
+
+        $ortaCustomer = [];
+        $colorCustomer = [];
+        $sumCustomer   = [];
+
+        foreach ($sumCustomerOrta as $data){
+            $ortaCustomer[] = $data['name'];
+            $colorCustomer[] = $data['color'];
+            $sumCustomer[]   = $data['price'];
+        }
+
         $ndd = $user->find(3)->getDomainNames()->toArray($user);
         $nbNdd = count($ndd);
         $sumSales = $sale->userSumSales($user->find(3));
@@ -166,6 +194,10 @@ class DashboardController extends AbstractDashboardController
             'ortaDname' => json_encode($ortaDname),
             'colorDname' => json_encode($colorDname),
             'sumDname'   => json_encode($sumDname),
+            // sum By Customer
+            'ortaCustomer' => json_encode($ortaCustomer),
+            'colorCustomer' => json_encode($colorCustomer),
+            'sumCustomer'   => json_encode($sumCustomer),
         ]);
     }
 
@@ -193,18 +225,34 @@ class DashboardController extends AbstractDashboardController
             $sumDname[]   = $data['price'];
         }
 
+        $sumCustomerRolls = $sale->sumCustomerRolls();
+
+        $rollsCustomer = [];
+        $colorCustomer = [];
+        $sumCustomer   = [];
+
+        foreach ($sumCustomerRolls as $data){
+            $rollsCustomer[] = $data['name'];
+            $colorCustomer[] = $data['color'];
+            $sumCustomer[]   = $data['price'];
+        }
+
         $ndd = $user->find(1)->getDomainNames()->toArray($user);
         $nbNdd = count($ndd);
         $sumSales = $sale->userSumSales($user->find(1));
         $sumSales = implode($sumSales);
 
         return $this->render('dashboard/rolls.html.twig', [
-            'ndds'       => $ndd,
-            'count'      => $nbNdd,
-            'sum'        => $sumSales,
-            'rollsDname' => json_encode($rollsDname),
-            'colorDname' => json_encode($colorDname),
-            'sumDname'   => json_encode($sumDname),
+            'ndds'          => $ndd,
+            'count'         => $nbNdd,
+            'sum'           => $sumSales,
+            'rollsDname'    => json_encode($rollsDname),
+            'colorDname'    => json_encode($colorDname),
+            'sumDname'      => json_encode($sumDname),
+            // sum By Customer
+            'rollsCustomer' => json_encode($rollsCustomer),
+            'colorCustomer' => json_encode($colorCustomer),
+            'sumCustomer'   => json_encode($sumCustomer),
         ]);
     }
 

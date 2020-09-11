@@ -77,6 +77,16 @@ class SaleRepository extends ServiceEntityRepository
             ->groupBy('d.name', 'd.color')
             ->getQuery()->getArrayResult();
     }
+    public function sumCustomerHellsaya(){
+        return $this->createQueryBuilder('s')
+            ->select('SUM(s.price) as price')
+            ->innerJoin('s.customer', 'c')
+            ->addSelect('c.name')
+            ->addSelect('c.color')
+            ->where('s.user = 2')
+            ->groupBy('c.name', 'c.color')
+            ->getQuery()->getArrayResult();
+    }
 
     // ORTA DASHBOARD
     public function sumDnameOrta(){
@@ -90,6 +100,17 @@ class SaleRepository extends ServiceEntityRepository
             ->getQuery()->getArrayResult();
     }
 
+    public function sumCustomerOrta(){
+        return $this->createQueryBuilder('s')
+            ->select('SUM(s.price) as price')
+            ->innerJoin('s.customer', 'c')
+            ->addSelect('c.name')
+            ->addSelect('c.color')
+            ->where('s.user = 3')
+            ->groupBy('c.name', 'c.color')
+            ->getQuery()->getArrayResult();
+    }
+
     // ROLLS DASHBOARD
     public function sumDnameRolls(){
         return $this->createQueryBuilder('s')
@@ -99,6 +120,16 @@ class SaleRepository extends ServiceEntityRepository
             ->addSelect('d.color')
             ->where('s.user = 1')
             ->groupBy('d.name', 'd.color')
+            ->getQuery()->getArrayResult();
+    }
+    public function sumCustomerRolls(){
+        return $this->createQueryBuilder('s')
+            ->select('SUM(s.price) as price')
+            ->innerJoin('s.customer', 'c')
+            ->addSelect('c.name')
+            ->addSelect('c.color')
+            ->where('s.user = 1')
+            ->groupBy('c.name', 'c.color')
             ->getQuery()->getArrayResult();
     }
 }

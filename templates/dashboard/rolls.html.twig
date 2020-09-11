@@ -3,25 +3,24 @@
 
 {% block page_content %}
     <div class="row">
-        <div class="col-sm-3">
-            <div class="mb-2 border-danger">
-                <h4>Nombre de NDD :</h4>
-                <h5>{{ count }}</h5>
-            </div>
-            <div>
-                <h4>Noms des NDD :</h4>
-                {% for ndd in ndds %}
-                    <div>
-                        <p>- {{ ndd.name }}</p>
-                    </div>
-                {% endfor %}
-            </div>
+        <div class="col-sm-3 d-flex flex-column mr-1 card-panel teal">
+            <h4>Nombre de NDD :</h4>
+            <h5>{{ count }}</h5>
         </div>
-        <div>
+        <div class="col-sm-3 d-flex flex-column mr-1 card-panel teal">
+            <h4>Noms des NDD :</h4>
+            {% for ndd in ndds %}
+                <div>
+                    <p>- {{ ndd.name }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-sm-3 d-flex flex-column mr-1 card-panel teal">
             <h4>Total des ventes</h4>
             <p>{{ sum }}</p>
         </div>
     </div>
+
     <div class="d-flex">
         <div class="col-sm-4">
             <canvas id="rollsDname" width="400" height="400"></canvas>
@@ -29,8 +28,10 @@
         <div class="col-sm-4">
         </div>
         <div class="col-sm-4">
+            <canvas id="rollsCustomer" width="400" height="400"></canvas>
         </div>
     </div>
+
     <div class="col-sm-12">
     </div>
 {% endblock %}
@@ -46,6 +47,18 @@
                      label: "Répartition des catégories",
                      data: {{ sumDname|raw }},
                      backgroundColor: {{ colorDname|raw }}
+                 }]
+             }
+         })
+         let rollsCustomer = document.querySelector("#rollsCustomer")
+         let rollsCustomerGraph = new Chart(rollsCustomer, {
+             type: "doughnut",
+             data: {
+                 labels: {{ rollsCustomer|raw }},
+                 datasets: [{
+                     label: "Répartition des catégories",
+                     data: {{ sumCustomer|raw }},
+                     backgroundColor: {{ colorCustomer|raw }}
                  }]
              }
          })
