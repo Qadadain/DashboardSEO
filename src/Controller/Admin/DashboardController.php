@@ -103,7 +103,7 @@ class DashboardController extends AbstractDashboardController
         $user = $em->getRepository('App:User');
 
         //ChartJS
-        $sumByHellsaya = $sale->sumDnameOrta();
+        $sumByHellsaya = $sale->sumDnameHellsaya();
 
         $hellsayaDname = [];
         $colorDname = [];
