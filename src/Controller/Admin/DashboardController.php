@@ -20,7 +20,7 @@ class DashboardController extends AbstractDashboardController
 {
 
     /**
-     * @Route("/", name="home")
+     * @Route("/admin", name="home")
      * @param EntityManagerInterface $em
      * @return Response
      */
