@@ -3,19 +3,31 @@
 
 {% block page_content %}
     <div class="row">
-        <div class="col-sm-3">
-            <h4>Nombre de NDD :</h4>
-            <h5>{{ count }}</h5>
-            <h4>Noms des NDD :</h4>
+        <div class="col-sm-3 d-flex flex-column mr-1 p-0 card-panel border-success mt-3">
+            <div>
+                <h6>Nombre de NDD </h6>
+            </div>
+            <div class="d-flex justify-content-center">
+                <h3>{{ count }}</h3>
+            </div>
+        </div>
+        <div class="col-sm-3 d-flex flex-column mr-1 p-0 card-panel border-success mt-3">
+            <div>
+                <h6>Noms des NDD </h6>
+            </div>
             {% for ndd in ndds %}
                 <div>
                     <p>- {{ ndd.name }}</p>
                 </div>
             {% endfor %}
         </div>
-        <div>
-            <h4>Total des ventes</h4>
-            <p>{{ sum }}</p>
+        <div class="col-sm-3 d-flex flex-column mr-1 p-0 card-panel border-success mt-3">
+            <div>
+                <h6>Total des ventes</h6>
+            </div>
+            <div class="d-flex justify-content-center">
+                <h3>{{ sum }}</h3>
+            </div>
         </div>
     </div>
     <div class="d-flex">

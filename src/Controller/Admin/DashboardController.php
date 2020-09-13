@@ -274,7 +274,7 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::section('CRUD');
         yield MenuItem::linkToCrud('Intermédiaires', 'fas fa-building', Customer::class);
-        yield MenuItem::linkToCrud('Nom de domaines', 'fas fa-globe', DomainName::class);
+        yield MenuItem::linkToCrud('Domain Name', 'fas fa-globe', DomainName::class);
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-poo', User::class);
         yield MenuItem::linkToCrud('Ventes', 'fas fa-euro-sign', Sale::class);
         // yield MenuItem::linkToCrud('The Label', 'icon class', EntityClass::class);

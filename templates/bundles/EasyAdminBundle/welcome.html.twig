@@ -6,14 +6,24 @@
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
 {% block page_content %}
-    <div class="row">
-        <div class="col-sm-3 d-flex flex-column mr-1 card-panel teal">
-            <h5>Nombre de NDD :</h5>
-            <h6>{{ countNdd }}</h6>
+    <div class="row d-flex justify-content-between">
+        <div class="col-sm-3 d-flex flex-column mr-1 p-0 card-panel border-success mt-3">
+            <div>
+            <h6 class="pl-2">Nombre de NDD </h6>
+            </div>
+            <div class="d-flex justify-content-center">
+            <h3 class="">{{ countNdd }}</h3>
+            </div>
         </div>
-        <div class="col-sm-3 d-flex flex-column mr-1 card-panel teal">
-            <h5>Total des ventes :</h5>
-            <h6>{{ allSales }} €</h6>
+        <div class="col-sm-5">
+        </div>
+        <div class="col-sm-3 d-flex flex-column mr-1 p-0 card-panel border-success mt-3">
+            <div>
+            <h6 class="pl-2">Total des ventes</h6>
+            </div>
+            <div class="d-flex justify-content-center">
+            <h3 class="">{{ allSales }} €</h3>
+            </div>
         </div>
     </div>
     <div class="d-flex">
