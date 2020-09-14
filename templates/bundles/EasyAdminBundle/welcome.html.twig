@@ -1,0 +1,84 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title 'Bienvenue sur le Dashboard' %}
+    {% block head_stylesheets %}
+        {{ parent() }}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+{% block page_content %}
+    <div class="row d-flex justify-content-between">
+        <div class="col-sm-3 d-flex flex-column mr-1 p-0 card card-panel  mt-3">
+            <div>
+            <h6 class="pl-2">Nombre de NDD </h6>
+            </div>
+            <div class="d-flex justify-content-center">
+            <h3 class="">{{ countNdd }}</h3>
+            </div>
+        </div>
+        <div class="col-sm-5">
+        </div>
+        <div class="col-sm-3 d-flex flex-column mr-1 p-0 card card-panel  mt-3">
+            <div>
+            <h6 class="pl-2">Total des ventes</h6>
+            </div>
+            <div class="d-flex justify-content-center">
+            <h3 class="">{{ allSales }} €</h3>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex">
+        <div class="col-sm-4">
+            <canvas id="sumPerCustomer" width="400" height="400"></canvas>
+        </div>
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            <canvas id="sumPerUser" width="400" height="400"></canvas>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <canvas id="sumPerDname"></canvas>
+    </div>
+{% endblock %}
+{% block body_javascript %}
+    {{ parent() }}
+    <script>
+        let customers = document.querySelector("#sumPerCustomer")
+        let customerGraph = new Chart(customers, {
+            type: "doughnut",
+            data: {
+                labels: {{ categNom|raw }},
+                datasets: [{
+                    label: "Répartition des catégories",
+                    data: {{ categPrice|raw }},
+                    backgroundColor: {{ categColor|raw }}
+                }]
+            }
+        })
+        let users = document.querySelector("#sumPerUser")
+        let userGraph = new Chart(users, {
+            type: "doughnut",
+            data: {
+                labels: {{ userName|raw }},
+                datasets: [{
+                    label: "Répartition des catégories",
+                    data: {{ userPrice|raw }},
+                    backgroundColor: {{ userColor|raw }}
+                }]
+            }
+        })
+        let dName = document.querySelector("#sumPerDname")
+        let dNameGraph = new Chart(dName, {
+            type: "bar",
+            data: {
+                labels: {{ dNameName|raw }},
+                datasets: [{
+                    label: "Somme par nom de domaine",
+                    data: {{ dNamePrice|raw }},
+                    backgroundColor: {{ dNameColor|raw }}
+                }]
+            }
+        })
+    </script>
+{% endblock body_javascript %}
+

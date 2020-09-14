@@ -1,0 +1,68 @@
+{% extends '@EasyAdmin/welcome.html.twig' %}
+{% block page_title 'Dashboard d\'Orta' %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-sm-3 d-flex flex-column mr-1 p-0 card card-panel  mt-3">
+            <div>
+                <h6 class="pl-2">Nombre de NDD </h6>
+            </div>
+            <div class="d-flex justify-content-center">
+                <h3>{{ count }}</h3>
+            </div>
+        </div>
+        <div class="col-sm-5">
+        </div>
+        <div class="col-sm-3 d-flex flex-column mr-1 p-0 card card-panel  mt-3">
+            <div>
+                <h6 class="pl-2">Total des ventes</h6>
+            </div>
+            <div class="d-flex justify-content-center">
+                <h3>{{ sum }} €</h3>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex">
+        <div class="col-sm-4">
+            <canvas id="ortaDname" width="400" height="400"></canvas>
+        </div>
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            <canvas id="ortaCustomer" width="400" height="400"></canvas>
+        </div>
+    </div>
+
+
+    <div class="col-sm-12">
+    </div>
+{% endblock %}
+ {% block body_javascript %}
+     {{ encore_entry_script_tags('app') }}
+     <script>
+         let ortaDname = document.querySelector("#ortaDname")
+         let ortaDnameGraph = new Chart(ortaDname, {
+             type: "doughnut",
+             data: {
+                 labels: {{ ortaDname|raw }},
+                 datasets: [{
+                     label: "Répartition des catégories",
+                     data: {{ sumDname|raw }},
+                     backgroundColor: {{ colorDname|raw }}
+                 }]
+             }
+         })
+         let ortaCustomer = document.querySelector("#ortaCustomer")
+         let ortaCustomerGraph = new Chart(ortaCustomer, {
+             type: "doughnut",
+             data: {
+                 labels: {{ ortaCustomer|raw }},
+                 datasets: [{
+                     label: "Répartition des catégories",
+                     data: {{ sumCustomer|raw }},
+                     backgroundColor: {{ colorCustomer|raw }}
+                 }]
+             }
+         })
+     </script>
+ {% endblock body_javascript %}
