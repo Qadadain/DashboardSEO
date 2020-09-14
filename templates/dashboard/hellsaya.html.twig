@@ -3,7 +3,7 @@
 
 {% block page_content %}
     <div class="row">
-        <div class="col-sm-3 d-flex flex-column mr-1 p-0 card-panel border-success mt-3">
+        <div class="col-sm-3 d-flex flex-column mr-1 p-0 card card-panel  mt-3">
             <div>
                 <h6>Nombre de NDD </h6>
             </div>
@@ -11,22 +11,14 @@
                 <h3>{{ count }}</h3>
             </div>
         </div>
-        <div class="col-sm-3 d-flex flex-column mr-1 p-0 card-panel border-success mt-3">
-            <div>
-                <h6>Noms des NDD </h6>
-            </div>
-            {% for ndd in ndds %}
-                <div>
-                    <p>- {{ ndd.name }}</p>
-                </div>
-            {% endfor %}
+        <div class="col-sm-5">
         </div>
-        <div class="col-sm-3 d-flex flex-column mr-1 p-0 card-panel border-success mt-3">
+        <div class="col-sm-3 d-flex flex-column mr-1 p-0 card card-panel  mt-3">
             <div>
                 <h6>Total des ventes</h6>
             </div>
             <div class="d-flex justify-content-center">
-                <h3>{{ sum }}</h3>
+                <h3>{{ sum }} €</h3>
             </div>
         </div>
     </div>

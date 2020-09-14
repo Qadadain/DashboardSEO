@@ -133,7 +133,6 @@ class DashboardController extends AbstractDashboardController
         $sumSales = implode($sumSales);
 
         return $this->render('dashboard/hellsaya.html.twig', [
-            'ndds'  => $ndd,
             'count' => $nbNdd,
             'sum'   => $sumSales,
             'hellsayaDname' => json_encode($hellsayaDname),
@@ -188,7 +187,6 @@ class DashboardController extends AbstractDashboardController
         $sumSales = implode($sumSales);
 
         return $this->render('dashboard/orta.html.twig', [
-            'ndds'  => $ndd,
             'count' => $nbNdd,
             'sum'   => $sumSales,
             'ortaDname' => json_encode($ortaDname),
@@ -243,7 +241,6 @@ class DashboardController extends AbstractDashboardController
         $sumSales = implode($sumSales);
 
         return $this->render('dashboard/rolls.html.twig', [
-            'ndds'          => $ndd,
             'count'         => $nbNdd,
             'sum'           => $sumSales,
             'rollsDname'    => json_encode($rollsDname),
