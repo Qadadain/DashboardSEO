@@ -14,25 +14,27 @@ class UserFixtures extends Fixture
             'roles' => ['ROLE_ADMIN'],
             'firstName' => 'Quentin',
             'lastName' => 'Adadain',
-            'pseudo' => 'Rolls'
+            'pseudo' => 'Rolls',
+            'password' => 'Tvc4STC9SChn'
         ],
-        'hellsaya@gmail.com' => [
+        'yohann.boucher@gmail.com' => [
             'roles' => ['ROLE_ADMIN'],
-            'firstName' => 'Yoann',
+            'firstName' => 'Yohann',
             'lastName' => 'Boucher',
-            'pseudo' => 'Hellsaya'
+            'pseudo' => 'Hellsaya',
+            'password' => 'Compta!!2020!!fluxy'
         ],
-        'orta@gmail.com' => [
+        'contact@arnaudallouche.fr' => [
             'roles' => ['ROLE_ADMIN'],
             'firstName' => 'Arnaud',
-            'lastName' => 'Allourche',
-            'pseudo' => 'Orta'
+            'lastName' => 'Allouche',
+            'pseudo' => 'Orta',
+            'password' => 'Compta!!2020!!fluxy'
+
         ]
 
     ];
 
-
-    public const PASSWORD_TEST = 'admin47';
 
     private UserPasswordEncoderInterface $passwordEncoder;
 
@@ -50,7 +52,7 @@ class UserFixtures extends Fixture
                 ->setFirstName($data['firstName'])
                 ->setLastName($data['lastName'])
                 ->setPseudo($data['pseudo'])
-                ->setPassword($this->passwordEncoder->encodePassword($user, self::PASSWORD_TEST));
+                ->setPassword($this->passwordEncoder->encodePassword($user, $data['password']));
 
             $manager->persist($user);
         }
