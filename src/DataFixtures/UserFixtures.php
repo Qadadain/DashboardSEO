@@ -15,21 +15,21 @@ class UserFixtures extends Fixture
             'firstName' => 'Quentin',
             'lastName' => 'Adadain',
             'pseudo' => 'Rolls',
-            'password' => 'Tvc4STC9SChn'
+            'password' => 'test'
         ],
-        'yohann.boucher@gmail.com' => [
+        'test@gmail.com' => [
             'roles' => ['ROLE_ADMIN'],
-            'firstName' => 'Yohann',
-            'lastName' => 'Boucher',
-            'pseudo' => 'Hellsaya',
-            'password' => 'Compta!!2020!!fluxy'
+            'firstName' => 'test',
+            'lastName' => 'test',
+            'pseudo' => 'test',
+            'password' => 'test'
         ],
-        'contact@arnaudallouche.fr' => [
+        'test@gmail.com' => [
             'roles' => ['ROLE_ADMIN'],
-            'firstName' => 'Arnaud',
-            'lastName' => 'Allouche',
-            'pseudo' => 'Orta',
-            'password' => 'Compta!!2020!!fluxy'
+            'firstName' => 'test',
+            'lastName' => 'test',
+            'pseudo' => 'test',
+            'password' => 'test'
 
         ]
 
